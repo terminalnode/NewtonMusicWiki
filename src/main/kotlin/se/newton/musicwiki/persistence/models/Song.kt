@@ -23,9 +23,9 @@ class Song {
         columnDefinition = "VARCHAR(64)")
     var name: String? = null;
 
-    @get:ManyToMany(mappedBy = "albums")
+    @get:ManyToMany(mappedBy = "songs")
     var albums: List<Album>? = null
 
-    @get:ManyToMany(mappedBy = "artists")
+    @get:ManyToMany(mappedBy = "songs")
     var artists: List<Artist>? = null
 }
