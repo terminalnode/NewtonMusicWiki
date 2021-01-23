@@ -1,5 +1,6 @@
 package se.newton.musicwiki.persistence.models
 
+import se.newton.musicwiki.persistence.IdBasedEntity
 import javax.persistence.*
 
 @Entity
@@ -8,14 +9,14 @@ import javax.persistence.*
     indexes = [
         Index(name = "IDX_SONG_NAME", columnList = "name", unique = true)
     ])
-class Song {
+class Song: IdBasedEntity() {
     @get:Id
     @get:Column(
         name = "id",
         nullable = false,
         columnDefinition = "BIGSERIAL")
     @get:GeneratedValue(strategy = GenerationType.SEQUENCE)
-    var id: Long? = null
+    override var id: Long? = null
 
     @get:Column(
         name = "name",
