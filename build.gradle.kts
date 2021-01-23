@@ -15,7 +15,11 @@ allOpen {
 
 group = "se.newton"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_15
+java {
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(15))
+	}
+}
 
 configurations {
 	compileOnly {
@@ -37,6 +41,7 @@ dependencies {
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile> {

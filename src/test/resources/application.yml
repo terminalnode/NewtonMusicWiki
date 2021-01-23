@@ -1,0 +1,11 @@
+spring:
+  application.name: NewtonMusicWiki
+  datasource:
+    url: jdbc:h2:mem:test;MODE=PostgreSQL
+    username: test
+    password: test
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
