@@ -8,24 +8,24 @@ import javax.persistence.*
     indexes = [
         Index(name = "IDX_SONG_NAME", columnList = "name", unique = true)
     ])
-open class Song {
+class Song {
     @get:Id
     @get:Column(
         name = "id",
         nullable = false,
         columnDefinition = "BIGSERIAL")
     @get:GeneratedValue(strategy = GenerationType.SEQUENCE)
-    open var id: Long? = null
+    var id: Long? = null
 
     @get:Column(
         name = "name",
         nullable = false,
         columnDefinition = "VARCHAR(64)")
-    open var name: String? = null;
+    var name: String? = null;
 
     @get:ManyToMany(mappedBy = "albums")
-    open var albums: List<Album>? = null
+    var albums: List<Album>? = null
 
     @get:ManyToMany(mappedBy = "artists")
-    open var artists: List<Artist>? = null
+    var artists: List<Artist>? = null
 }

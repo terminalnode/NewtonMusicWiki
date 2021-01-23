@@ -8,20 +8,20 @@ import javax.persistence.*
     indexes = [
         Index(name = "IDX_ALBUM_NAME", columnList = "name", unique = true)
     ])
-open class Album {
+class Album {
     @get:Id
     @get:Column(
         name = "id",
         nullable = false,
         columnDefinition = "BIGSERIAL")
     @get:GeneratedValue(strategy = GenerationType.SEQUENCE)
-    open var id: Long? = null
+    var id: Long? = null
 
     @get:Column(
         name = "name",
         nullable = false,
         columnDefinition = "VARCHAR(64)")
-    open var name: String? = null;
+    var name: String? = null;
 
     @get:ManyToMany(cascade = [ CascadeType.PERSIST, CascadeType.REFRESH ])
     @get:JoinTable(
@@ -31,7 +31,7 @@ open class Album {
         foreignKey = ForeignKey(name = "fk_album_artist_album"),
         inverseForeignKey = ForeignKey(name = "fk_album_artist_artist")
     )
-    open var artists: MutableList<Artist>? = mutableListOf()
+    var artists: MutableList<Artist>? = mutableListOf()
 
     @get:ManyToMany(cascade = [ CascadeType.PERSIST, CascadeType.REFRESH ])
     @get:JoinTable(
@@ -41,5 +41,5 @@ open class Album {
         foreignKey = ForeignKey(name = "fk_album_song_album"),
         inverseForeignKey = ForeignKey(name = "fk_album_song_song")
     )
-    open var songs: MutableList<Song>? = mutableListOf()
+    var songs: MutableList<Song>? = mutableListOf()
 }
