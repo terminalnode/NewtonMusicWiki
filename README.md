@@ -10,3 +10,9 @@ Set up the `music_wiki` user and `music_wiki` database by running the following 
 `CREATE DATABASE music_wiki WITH OWNER music_wiki ENCODING 'UTF8';`
 
 Then run `MusicWikiApplication.kt`.
+
+## Tests
+We have two sets of tests, unit tests and integration tests.
+ - To run the unit tests, run the gradle task `unitTest`.
+ - To run the integration tests, run the gradle task `integrationTest`.
+ - To run both of the sets, run the gradle task `test`.
