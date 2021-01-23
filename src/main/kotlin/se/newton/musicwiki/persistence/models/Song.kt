@@ -22,4 +22,10 @@ open class Song {
         nullable = false,
         columnDefinition = "VARCHAR(64)")
     open var name: String? = null;
+
+    @get:ManyToMany(mappedBy = "albums")
+    open var albums: List<Album>? = null
+
+    @get:ManyToMany(mappedBy = "artists")
+    open var artists: List<Artist>? = null
 }

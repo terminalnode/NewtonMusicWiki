@@ -30,4 +30,17 @@ open class Artist {
         columnDefinition = "NUMERIC(1)"
     )
     open var artistType: ArtistType? = null
+
+    @get:ManyToMany(cascade = [ CascadeType.PERSIST, CascadeType.REFRESH ])
+    @get:JoinTable(
+        name = "artist_song",
+        joinColumns = [ JoinColumn(name = "artist_id") ],
+        inverseJoinColumns = [ JoinColumn(name = "song_id") ],
+        foreignKey = ForeignKey(name = "fk_artist_song_artist"),
+        inverseForeignKey = ForeignKey(name = "fk_artist_song_song")
+    )
+    open var songs: List<Song>? = null
+
+    @get:ManyToMany(mappedBy = "artists")
+    open var albums: List<Album>? = null
 }
