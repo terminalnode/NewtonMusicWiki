@@ -2,4 +2,6 @@ spring:
   application.name: NewtonMusicWiki
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
-    hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop
