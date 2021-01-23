@@ -24,21 +24,14 @@ class Album: IdBasedEntity() {
         columnDefinition = "VARCHAR(64)")
     var name: String? = null;
 
-    @get:ManyToMany(cascade = [ CascadeType.PERSIST, CascadeType.REFRESH ])
-    @get:JoinTable(
-        name = "album_artist",
-        joinColumns = [ JoinColumn(name = "album_id") ],
-        inverseJoinColumns = [ JoinColumn(name = "artist_id") ],
-        foreignKey = ForeignKey(name = "fk_album_artist_album"),
-        inverseForeignKey = ForeignKey(name = "fk_album_artist_artist")
-    )
+    @get:ManyToMany(mappedBy = "albums")
     var artists: MutableList<Artist>? = mutableListOf()
 
     @get:ManyToMany(cascade = [ CascadeType.PERSIST, CascadeType.REFRESH ])
     @get:JoinTable(
         name = "album_song",
-        joinColumns = [ JoinColumn(name = "album_id") ],
-        inverseJoinColumns = [ JoinColumn(name = "song_id") ],
+        joinColumns = [ JoinColumn(name = "album_id", nullable = false) ],
+        inverseJoinColumns = [ JoinColumn(name = "song_id", nullable = false) ],
         foreignKey = ForeignKey(name = "fk_album_song_album"),
         inverseForeignKey = ForeignKey(name = "fk_album_song_song")
     )
