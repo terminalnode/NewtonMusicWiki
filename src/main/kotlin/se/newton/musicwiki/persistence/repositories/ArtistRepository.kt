@@ -1,6 +1,6 @@
 package se.newton.musicwiki.persistence.repositories
 
 import org.springframework.data.jpa.repository.JpaRepository
-import se.newton.musicwiki.persistence.models.Album
+import se.newton.musicwiki.persistence.models.Artist
 
-interface AlbumRepository : JpaRepository<Album, Long>
+interface ArtistRepository : JpaRepository<Artist, Long>
