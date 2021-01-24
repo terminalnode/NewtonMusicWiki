@@ -10,7 +10,13 @@ import javax.persistence.*
     indexes = [
         Index(name = "IDX_ARTIST_NAME", columnList = "name", unique = true)
     ])
-class Artist: IdBasedEntity() {
+class Artist(): IdBasedEntity() {
+    @Suppress("LeakingThis")
+    constructor(name: String?, artistType: ArtistType?) : this() {
+        this.name = name;
+        this.artistType = artistType;
+    }
+
     @get:Id
     @get:Column(
         name = "id",
@@ -32,7 +38,7 @@ class Artist: IdBasedEntity() {
     )
     var artistType: ArtistType? = null
 
-    @get:ManyToMany(cascade = [ CascadeType.PERSIST, CascadeType.REFRESH ])
+    @get:ManyToMany(fetch = FetchType.EAGER)
     @get:JoinTable(
         name = "artist_song",
         joinColumns = [ JoinColumn(name = "artist_id", nullable = false) ],
@@ -40,9 +46,9 @@ class Artist: IdBasedEntity() {
         foreignKey = ForeignKey(name = "fk_artist_song_artist"),
         inverseForeignKey = ForeignKey(name = "fk_artist_song_song")
     )
-    var songs: List<Song>? = null
+    var songs: MutableList<Song>? = null
 
-    @get:ManyToMany
+    @get:ManyToMany(fetch = FetchType.EAGER)
     @get:JoinTable(
         name = "artist_album",
         joinColumns = [ JoinColumn(name = "artist_id", nullable = false) ],
@@ -50,5 +56,5 @@ class Artist: IdBasedEntity() {
         foreignKey = ForeignKey(name = "fk_artist_album_artist"),
         inverseForeignKey = ForeignKey(name = "fk_artist_album_album")
     )
-    var albums: List<Album>? = null
+    var albums: MutableList<Album>? = null
 }
