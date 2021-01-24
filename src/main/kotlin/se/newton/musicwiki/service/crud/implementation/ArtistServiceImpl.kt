@@ -49,4 +49,8 @@ class ArtistServiceImpl(
     }
     artistRepository.deleteById(id)
   }
+
+  override fun findAll(): List<Artist> {
+    return artistRepository.findAll()
+  }
 }

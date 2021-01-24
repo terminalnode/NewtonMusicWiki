@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class MusicWikiApplication
 
 fun main(args: Array<String>) {
-	runApplication<MusicWikiApplication>(*args)
+  runApplication<MusicWikiApplication>(*args)
 }
