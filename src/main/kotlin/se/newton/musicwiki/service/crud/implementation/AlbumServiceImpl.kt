@@ -15,6 +15,11 @@ import javax.persistence.EntityNotFoundException
 class AlbumServiceImpl(
     val albumRepository: AlbumRepository
 ) : AlbumService {
+    private fun getAlbum(albumId: Long): Album {
+        return albumRepository.findByIdOrNull(albumId)
+            ?: throw EntityNotFoundException("No album by that id exists")
+    }
+
     override fun create(album: Album): Album {
         album.id = 0;
 
@@ -23,11 +28,6 @@ class AlbumServiceImpl(
         album.songs = mutableListOf()
 
         return albumRepository.save(album)
-    }
-
-    private fun getAlbum(albumId: Long): Album {
-        return albumRepository.findByIdOrNull(albumId)
-            ?: throw EntityNotFoundException("No album by that id exists")
     }
 
     override fun update(album: Album): Album {
