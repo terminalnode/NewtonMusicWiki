@@ -38,8 +38,7 @@ class Artist(inName: String? = null, inArtistType: ArtistType? = null): IdBasedE
         joinColumns = [ JoinColumn(name = "artist_id", nullable = false) ],
         inverseJoinColumns = [ JoinColumn(name = "song_id", nullable = false) ],
         foreignKey = ForeignKey(name = "fk_artist_song_artist"),
-        inverseForeignKey = ForeignKey(name = "fk_artist_song_song")
-    )
+        inverseForeignKey = ForeignKey(name = "fk_artist_song_song"))
     var songs: MutableList<Song> = mutableListOf()
 
     @get:ManyToMany(fetch = FetchType.EAGER)
@@ -48,7 +47,6 @@ class Artist(inName: String? = null, inArtistType: ArtistType? = null): IdBasedE
         joinColumns = [ JoinColumn(name = "artist_id", nullable = false) ],
         inverseJoinColumns = [ JoinColumn(name = "album_id", nullable = false) ],
         foreignKey = ForeignKey(name = "fk_artist_album_artist"),
-        inverseForeignKey = ForeignKey(name = "fk_artist_album_album")
-    )
+        inverseForeignKey = ForeignKey(name = "fk_artist_album_album"))
     var albums: MutableList<Album> = mutableListOf()
 }

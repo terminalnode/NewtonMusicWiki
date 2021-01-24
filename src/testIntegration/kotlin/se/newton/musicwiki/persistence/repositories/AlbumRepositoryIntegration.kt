@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import se.newton.musicwiki.persistence.enums.ArtistType
 import se.newton.musicwiki.persistence.models.Album
+import se.newton.musicwiki.persistence.models.AlbumSong
 import se.newton.musicwiki.persistence.models.Artist
 import se.newton.musicwiki.persistence.models.Song
 import javax.persistence.EntityManager
@@ -19,11 +20,13 @@ import kotlin.test.assertNotNull
 @Suppress("LeakingThis")
 class `Album Repository Integration`(
     @Autowired val albumRepository: AlbumRepository,
+    @Autowired val albumSongRepository: AlbumSongRepository,
     @Autowired val artistRepository: ArtistRepository,
     @Autowired val songRepository: SongRepository,
     @Autowired val entityManager: EntityManager,
 ) {
     val albumRepositoryHelper: RepoTestHelper<Album> = RepoTestHelper(albumRepository)
+    val albumSongRepositoryHelper: RepoTestHelper<AlbumSong> = RepoTestHelper(albumSongRepository)
     val artistRepositoryHelper: RepoTestHelper<Artist> = RepoTestHelper(artistRepository)
     val songRepositoryHelper: RepoTestHelper<Song> = RepoTestHelper(songRepository)
 
@@ -108,7 +111,8 @@ class `Album Repository Integration`(
         // Arrange
         val song = Song("Pep Rally")
         val album = Album("Alice in Thunderdome")
-        album.songs.add(song)
+        val albumSong = AlbumSong(2, album, song)
+        album.songs.add(albumSong)
 
         // Act
         albumRepository.saveAndFlush(album)
@@ -117,28 +121,55 @@ class `Album Repository Integration`(
         albumRepositoryHelper.assertCount(1)
         songRepositoryHelper.assertCount(1)
         val savedAlbum = albumRepositoryHelper.retrieveAndAssert(album)
-        assertThat(savedAlbum.songs).contains(song)
+        assertThat(savedAlbum.songs).contains(albumSong)
     }
 
     @Test
     @Suppress("SpellCheckingInspection")
-    fun `Removing an album does not remove the song`() {
+    fun `Removing an album removes albumSong from database`() {
         // Arrange
         val song = Song("Pep Rally")
         val album = Album("Alice in Thunderdome")
-        album.songs.add(song)
+        val albumSong = AlbumSong(2, album, song)
+        album.songs.add(albumSong)
 
         // Act and Assert 1 - Save and assert saved
         albumRepository.saveAndFlush(album)
         albumRepositoryHelper.assertCount(1)
         songRepositoryHelper.assertCount(1)
         val savedAlbum = albumRepositoryHelper.retrieveAndAssert(album)
-        assertThat(savedAlbum.songs).contains(song)
+        assertThat(savedAlbum.songs).contains(albumSong)
+
+        // Act and assert 2 - Delete and assert album and album song deleted
+        albumRepositoryHelper.deleteEntityById(savedAlbum)
+        entityManager.flush()
         entityManager.clear()
 
-        // Act and assert 2 - Delete and assert album deleted and artist not deleted
-        val albumId = savedAlbum.id ?: throw AssertionError("Saved album doesn't have an id")
-        albumRepository.deleteById(albumId)
+        albumRepositoryHelper.assertEmpty()
+        albumSongRepositoryHelper.assertEmpty()
+    }
+
+    @Test
+    @Suppress("SpellCheckingInspection")
+    fun `Removing an album does not remove song from database`() {
+        // Arrange
+        val song = Song("Pep Rally")
+        val album = Album("Alice in Thunderdome")
+        val albumSong = AlbumSong(2, album, song)
+        album.songs.add(albumSong)
+
+        // Act and Assert 1 - Save and assert saved
+        albumRepository.saveAndFlush(album)
+        albumRepositoryHelper.assertCount(1)
+        songRepositoryHelper.assertCount(1)
+        val savedAlbum = albumRepositoryHelper.retrieveAndAssert(album)
+        assertThat(savedAlbum.songs).contains(albumSong)
+
+        // Act and assert 2 - Delete and assert album deleted but song not deleted
+        albumRepositoryHelper.deleteEntityById(savedAlbum)
+        albumRepository.flush()
+        entityManager.clear()
+
         albumRepositoryHelper.assertEmpty()
         songRepositoryHelper.assertCount(1)
     }

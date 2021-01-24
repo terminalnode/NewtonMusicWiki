@@ -24,8 +24,12 @@ class Song(inName: String? = null): IdBasedEntity() {
         columnDefinition = "VARCHAR(64)")
     var name: String? = inName
 
-    @get:ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
-    var albums: MutableList<Album> = mutableListOf()
+    @get:OneToMany(
+        mappedBy = "song",
+        fetch = FetchType.EAGER,
+        cascade = [ CascadeType.ALL ],
+        orphanRemoval = true)
+    var albums: MutableList<AlbumSong> = mutableListOf()
 
     @get:ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
     var artists: MutableList<Artist> = mutableListOf()

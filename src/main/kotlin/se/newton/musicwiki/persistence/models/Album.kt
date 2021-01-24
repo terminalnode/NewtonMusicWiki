@@ -27,13 +27,10 @@ class Album(inName: String? = null): IdBasedEntity() {
     @get:ManyToMany(mappedBy = "albums", fetch = FetchType.EAGER, cascade = [ CascadeType.ALL ])
     var artists: MutableList<Artist> = mutableListOf()
 
-    @get:ManyToMany(fetch = FetchType.EAGER, cascade = [ CascadeType.PERSIST, CascadeType.MERGE ])
-    @get:JoinTable(
-        name = "album_song",
-        joinColumns = [ JoinColumn(name = "album_id", nullable = false) ],
-        inverseJoinColumns = [ JoinColumn(name = "song_id", nullable = false) ],
-        foreignKey = ForeignKey(name = "fk_album_song_album"),
-        inverseForeignKey = ForeignKey(name = "fk_album_song_song")
-    )
-    var songs: MutableList<Song> = mutableListOf()
+    @get:OneToMany(
+        mappedBy = "album",
+        fetch = FetchType.EAGER,
+        cascade = [ CascadeType.ALL ],
+        orphanRemoval = true)
+    var songs: MutableList<AlbumSong> = mutableListOf()
 }

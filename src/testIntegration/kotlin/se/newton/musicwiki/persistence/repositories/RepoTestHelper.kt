@@ -52,4 +52,25 @@ class RepoTestHelper<EntityType>(
     fun assertEmpty() {
         assertCount(0)
     }
+
+    /**
+     * Extract the id from an entity and delete it from the repository.
+     * If the entity does not have an id an assertion error will be thrown.
+     * @param entity The entity that should be deleted.
+     */
+    fun deleteEntityById(entity: EntityType) {
+        val id = entity.id ?: throw AssertionError("Entity doesn't have an id")
+        repository.deleteById(id)
+    }
+
+    /**
+     * Assert that a repository does not contain the provided entity.
+     * @param entity The entity that's not supposed to exist.
+     */
+    fun assertNotExistById(entity: EntityType) {
+        val id = entity.id ?: throw AssertionError("Entity doesn't have an id")
+        if (repository.existsById(id)) {
+            throw AssertionError("The entity that's not supposed to exist does in fact exist")
+        }
+    }
 }
