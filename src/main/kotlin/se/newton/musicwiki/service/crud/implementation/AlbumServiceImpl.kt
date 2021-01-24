@@ -69,6 +69,10 @@ class AlbumServiceImpl(
         return getAlbum(id)
     }
 
+    override fun findByIds(vararg ids: Long): List<Album> {
+        return albumRepository.findByIdIn(ids.asList())
+    }
+
     override fun deleteById(id: Long) {
         if (!albumRepository.existsById(id)) {
             throw EntityNotFoundException("No album by that id exists")

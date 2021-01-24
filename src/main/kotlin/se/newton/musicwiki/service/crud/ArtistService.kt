@@ -6,6 +6,7 @@ interface ArtistService {
     fun create(artist: Artist): Artist
     fun update(artist: Artist): Artist
     fun findById(id: Long): Artist
+    fun findByIds(vararg ids: Long) : List<Artist>
     fun deleteById(id: Long)
     fun findAll(): List<Artist>
 }

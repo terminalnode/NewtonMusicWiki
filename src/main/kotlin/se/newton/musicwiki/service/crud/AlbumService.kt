@@ -11,6 +11,7 @@ interface AlbumService {
     fun addSongAndSongArtistsToAlbum(albumId: Long, vararg songs: AlbumSong) : Album
     fun addArtistsToAlbum(albumId: Long, vararg artists: Artist) : Album
     fun findById(id: Long): Album
+    fun findByIds(vararg ids: Long) : List<Album>
     fun deleteById(id: Long)
     fun findAll(): List<Album>
 }

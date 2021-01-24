@@ -37,6 +37,10 @@ class SongServiceImpl(
             ?: throw EntityNotFoundException("No album by that id exists")
     }
 
+    override fun findByIds(vararg ids: Long): List<Song> {
+        return songRepository.findByIdIn(ids.asList())
+    }
+
     override fun existsById(id: Long?): Boolean {
         id ?: throw EntityNotFoundException("No id specified")
         return songRepository.existsById(id)

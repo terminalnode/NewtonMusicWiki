@@ -38,6 +38,10 @@ class ArtistServiceImpl(
     return getArtist(id)
   }
 
+  override fun findByIds(vararg ids: Long): List<Artist> {
+    return artistRepository.findByIdIn(ids.asList())
+  }
+
   private fun getArtist(artistId: Long): Artist {
     return artistRepository.findByIdOrNull(artistId)
       ?: throw EntityNotFoundException("No artist by that id exists")
