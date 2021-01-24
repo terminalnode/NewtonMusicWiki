@@ -7,7 +7,7 @@ import javax.persistence.*
 @Table(
     name = "song",
     indexes = [
-        Index(name = "IDX_SONG_NAME", columnList = "name", unique = true)
+        Index(name = "IDX_SONG_NAME", columnList = "name")
     ])
 class Song(inName: String? = null): IdBasedEntity() {
     @get:Id
