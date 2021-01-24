@@ -7,7 +7,7 @@ data class DtoMapping<OriginClass, DestinationClass>(
         return mapFunction(origin)
     }
 
-    fun map(origins: List<OriginClass>): List<DestinationClass> {
+    fun map(origins: Collection<OriginClass>): List<DestinationClass> {
         return origins.mapNotNull { map(it) }
     }
 }

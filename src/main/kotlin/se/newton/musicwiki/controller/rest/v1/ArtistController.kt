@@ -18,13 +18,13 @@ class ArtistController(
   @GetMapping("/{id}")
   fun findById(@PathVariable id: Long): ArtistDto? {
     val artist = artistService.findById(id)
-    return dtoMapper.toArtistDto.map(artist)
+    return dtoMapper.map(artist)
   }
 
   @PostMapping
   fun create(@RequestBody artist: Artist): ArtistDto? {
     val savedArtist = artistService.create(artist)
-    return dtoMapper.toArtistDto.map(savedArtist)
+    return dtoMapper.map(savedArtist)
   }
 
   @DeleteMapping("/{id}")
@@ -35,7 +35,7 @@ class ArtistController(
   @GetMapping
   fun findAll(): ArtistListDto {
     val artists = artistService.findAll()
-    return ArtistListDto(dtoMapper.toArtistDto.map(artists))
+    return ArtistListDto(dtoMapper.map(artists))
   }
 
   @PostMapping("/{id}")
@@ -49,6 +49,6 @@ class ArtistController(
     @RequestBody artist: Artist
   ): ArtistSongListDto {
     val songs = artistService.addSongsToArtist(id, artist.songs)
-    return ArtistSongListDto(dtoMapper.toArtistSongDto.map(songs))
+    return ArtistSongListDto(dtoMapper.map(songs))
   }
 }
