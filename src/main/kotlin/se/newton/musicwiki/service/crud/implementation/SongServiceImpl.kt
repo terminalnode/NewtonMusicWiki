@@ -22,11 +22,17 @@ class SongServiceImpl(
     }
 
     override fun update(song: Song): Song {
-        existsById(song.id)
-        return songRepository.save(song)
+        val existing = findById(song.id)
+        existing.name = song.name
+        existing.albums = song.albums
+        existing.artists = song.artists
+        println(song.id)
+
+        return songRepository.save(existing)
     }
 
-    override fun findById(id: Long): Song {
+    override fun findById(id: Long?): Song {
+        id ?: throw EntityNotFoundException("No id specified")
         return songRepository.findByIdOrNull(id)
             ?: throw EntityNotFoundException("No album by that id exists")
     }

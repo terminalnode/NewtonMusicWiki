@@ -28,4 +28,11 @@ class SongController(
     fun findAll(): List<Song> {
         return songService.findAll()
     }
+
+    @PostMapping("/edit")
+    fun addArtistsToSong(
+        @RequestBody song: Song
+    ): Song {
+        return songService.update(song)
+    }
 }

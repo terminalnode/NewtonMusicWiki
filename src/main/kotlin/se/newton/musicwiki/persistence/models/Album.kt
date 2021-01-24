@@ -30,7 +30,6 @@ class Album(inName: String? = null): IdBasedEntity() {
     @get:OneToMany(
         mappedBy = "album",
         fetch = FetchType.EAGER,
-        cascade = [ CascadeType.ALL ],
-        orphanRemoval = true)
+        cascade = [ CascadeType.ALL ],)
     var songs: MutableList<AlbumSong> = mutableListOf()
 }

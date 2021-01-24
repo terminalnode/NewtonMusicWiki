@@ -5,7 +5,7 @@ import se.newton.musicwiki.persistence.models.Song
 interface SongService {
     fun create(song: Song): Song
     fun update(song: Song): Song
-    fun findById(id: Long): Song
+    fun findById(id: Long?): Song
     fun existsById(id: Long?): Boolean
     fun findAll(): List<Song>
     fun deleteById(id: Long)
