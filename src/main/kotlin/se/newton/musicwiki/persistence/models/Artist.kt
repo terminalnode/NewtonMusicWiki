@@ -41,7 +41,7 @@ class Artist(inName: String? = null, inArtistType: ArtistType? = null): IdBasedE
         inverseForeignKey = ForeignKey(name = "fk_artist_song_song"))
     var songs: MutableList<Song> = mutableListOf()
 
-    @get:ManyToMany(fetch = FetchType.EAGER)
+    @get:ManyToMany(fetch = FetchType.EAGER, cascade = [ CascadeType.ALL ])
     @get:JoinTable(
         name = "artist_album",
         joinColumns = [ JoinColumn(name = "artist_id", nullable = false) ],

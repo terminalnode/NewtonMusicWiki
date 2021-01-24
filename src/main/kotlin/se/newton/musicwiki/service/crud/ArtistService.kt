@@ -10,6 +10,5 @@ interface ArtistService {
     fun findByIds(vararg ids: Long) : List<Artist>
     fun deleteById(id: Long)
     fun findAll(): List<Artist>
-    fun addSongsToArtist(artistId: Long, songs: List<Song>): Artist
-
+    fun addSongsToArtist(artistId: Long, songs: List<Song>): List<Song>
 }

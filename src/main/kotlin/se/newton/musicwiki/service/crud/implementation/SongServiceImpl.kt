@@ -11,13 +11,20 @@ import javax.persistence.EntityNotFoundException
 class SongServiceImpl(
     val songRepository: SongRepository
 ) : SongService {
-    override fun create(song: Song): Song {
-        song.id = 0;
+    override fun create(vararg songs: Song): List<Song> {
+        songs.forEach { it.id = 0 }
 
         // Only save primary fields
+        //song.artists = mutableListOf()
+        //song.albums = mutableListOf()
+
+        return songRepository.saveAll(songs.asList())
+    }
+
+    override fun create(song: Song): Song {
+        song.id = 0;
         song.artists = mutableListOf()
         song.albums = mutableListOf()
-
         return songRepository.save(song)
     }
 

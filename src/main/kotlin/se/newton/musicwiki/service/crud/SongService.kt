@@ -10,4 +10,5 @@ interface SongService {
     fun existsById(id: Long?): Boolean
     fun findAll(): List<Song>
     fun deleteById(id: Long)
+    fun create(vararg songs: Song): List<Song>
 }

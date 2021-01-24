@@ -2,16 +2,17 @@ package se.newton.musicwiki.service.crud.implementation
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import se.newton.musicwiki.persistence.models.Album
 import se.newton.musicwiki.persistence.models.Artist
 import se.newton.musicwiki.persistence.models.Song
 import se.newton.musicwiki.persistence.repositories.ArtistRepository
+import se.newton.musicwiki.persistence.repositories.SongRepository
 import se.newton.musicwiki.service.crud.ArtistService
 import javax.persistence.EntityNotFoundException
 
 @Service
 class ArtistServiceImpl(
-  val artistRepository: ArtistRepository
+  val artistRepository: ArtistRepository,
+  val songRepository: SongRepository
 ) : ArtistService {
 
   override fun create(artist: Artist): Artist {
@@ -59,9 +60,13 @@ class ArtistServiceImpl(
     return artistRepository.findAll()
   }
 
-  override fun addSongsToArtist(artistId: Long, songs: List<Song>): Artist {
+  override fun addSongsToArtist(artistId: Long, songs: List<Song>): List<Song> {
+    songs.forEach { it.id = 0 }
+    val savedSongs = songRepository.saveAll(songs)
+
     val artist = getArtist(artistId)
-    artist.songs.addAll(songs)
-    return artistRepository.save(artist)
+    artist.songs.addAll(savedSongs)
+    artistRepository.save(artist).songs
+    return savedSongs
   }
 }
