@@ -3,6 +3,7 @@ package se.newton.musicwiki.controller.rest.v1
 import org.springframework.web.bind.annotation.*
 import se.newton.musicwiki.persistence.models.Album
 import se.newton.musicwiki.persistence.models.Artist
+import se.newton.musicwiki.persistence.models.Song
 import se.newton.musicwiki.service.crud.ArtistService
 
 
@@ -29,6 +30,11 @@ class ArtistController(
   @GetMapping
   fun findAll(): List<Artist> {
     return artistService.findAll()
+  }
+
+  @PostMapping("/{id}")
+  fun addSongToArtist(@PathVariable id: Long, @RequestBody songs: List<Song>) {
+    artistService.addSongsToArtist(id, songs)
   }
 
 
