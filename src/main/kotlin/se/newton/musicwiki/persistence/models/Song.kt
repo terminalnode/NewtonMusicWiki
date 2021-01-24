@@ -9,12 +9,7 @@ import javax.persistence.*
     indexes = [
         Index(name = "IDX_SONG_NAME", columnList = "name", unique = true)
     ])
-class Song(): IdBasedEntity() {
-    @Suppress("LeakingThis")
-    constructor(name: String?) : this() {
-        this.name = name
-    }
-
+class Song(inName: String? = null): IdBasedEntity() {
     @get:Id
     @get:Column(
         name = "id",
@@ -27,7 +22,7 @@ class Song(): IdBasedEntity() {
         name = "name",
         nullable = false,
         columnDefinition = "VARCHAR(64)")
-    var name: String? = null;
+    var name: String? = inName
 
     @get:ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
     var albums: MutableList<Album> = mutableListOf()

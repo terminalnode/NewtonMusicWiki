@@ -10,13 +10,7 @@ import javax.persistence.*
     indexes = [
         Index(name = "IDX_ARTIST_NAME", columnList = "name", unique = true)
     ])
-class Artist(): IdBasedEntity() {
-    @Suppress("LeakingThis")
-    constructor(name: String?, artistType: ArtistType?) : this() {
-        this.name = name;
-        this.artistType = artistType;
-    }
-
+class Artist(inName: String? = null, inArtistType: ArtistType? = null): IdBasedEntity() {
     @get:Id
     @get:Column(
         name = "id",
@@ -29,14 +23,14 @@ class Artist(): IdBasedEntity() {
         name = "name",
         nullable = false,
         columnDefinition = "VARCHAR(64)")
-    var name: String? = null
+    var name: String? = inName
 
     @get:Column(
         name = "artist_type",
         nullable = false,
         columnDefinition = "NUMERIC(1)"
     )
-    var artistType: ArtistType? = null
+    var artistType: ArtistType? = inArtistType
 
     @get:ManyToMany(fetch = FetchType.EAGER)
     @get:JoinTable(
