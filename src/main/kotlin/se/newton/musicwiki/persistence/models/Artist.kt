@@ -46,7 +46,7 @@ class Artist(): IdBasedEntity() {
         foreignKey = ForeignKey(name = "fk_artist_song_artist"),
         inverseForeignKey = ForeignKey(name = "fk_artist_song_song")
     )
-    var songs: MutableList<Song>? = null
+    var songs: MutableList<Song> = mutableListOf()
 
     @get:ManyToMany(fetch = FetchType.EAGER)
     @get:JoinTable(
@@ -56,5 +56,5 @@ class Artist(): IdBasedEntity() {
         foreignKey = ForeignKey(name = "fk_artist_album_artist"),
         inverseForeignKey = ForeignKey(name = "fk_artist_album_album")
     )
-    var albums: MutableList<Album>? = null
+    var albums: MutableList<Album> = mutableListOf()
 }

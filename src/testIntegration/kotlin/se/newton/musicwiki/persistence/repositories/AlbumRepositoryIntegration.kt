@@ -44,8 +44,6 @@ class `Album Repository Integration`(
         // Assert - Not null checks
         assertNotNull(saved.name)
         assertNotNull(saved.id)
-        assertNotNull(saved.artists)
-        assertNotNull(saved.songs)
 
         // Assert - Value checks
         assertEquals(saved.id, album.id)
@@ -69,7 +67,7 @@ class `Album Repository Integration`(
         // Arrange
         val artist = Artist("Rob Sonic", ArtistType.PERSON)
         val album = Album("Alice in Thunderdome")
-        album.artists?.add(artist)
+        album.artists.add(artist)
 
         // Act
         albumRepository.saveAndFlush(album)
@@ -87,7 +85,7 @@ class `Album Repository Integration`(
         // Arrange
         val artist = Artist("Rob Sonic", ArtistType.PERSON)
         val album = Album("Alice in Thunderdome")
-        album.artists?.add(artist)
+        album.artists.add(artist)
 
         // Act and Assert 1 - Save and assert saved
         albumRepository.saveAndFlush(album)
@@ -110,7 +108,7 @@ class `Album Repository Integration`(
         // Arrange
         val song = Song("Pep Rally")
         val album = Album("Alice in Thunderdome")
-        album.songs?.add(song)
+        album.songs.add(song)
 
         // Act
         albumRepository.saveAndFlush(album)
@@ -128,7 +126,7 @@ class `Album Repository Integration`(
         // Arrange
         val song = Song("Pep Rally")
         val album = Album("Alice in Thunderdome")
-        album.songs?.add(song)
+        album.songs.add(song)
 
         // Act and Assert 1 - Save and assert saved
         albumRepository.saveAndFlush(album)

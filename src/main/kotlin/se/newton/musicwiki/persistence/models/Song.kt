@@ -30,8 +30,8 @@ class Song(): IdBasedEntity() {
     var name: String? = null;
 
     @get:ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
-    var albums: MutableList<Album>? = null
+    var albums: MutableList<Album> = mutableListOf()
 
     @get:ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
-    var artists: MutableList<Artist>? = null
+    var artists: MutableList<Artist> = mutableListOf()
 }

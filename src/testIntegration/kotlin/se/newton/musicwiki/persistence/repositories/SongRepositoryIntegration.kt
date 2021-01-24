@@ -34,8 +34,6 @@ class `Song Repository Integration`(
         // Assert - Not null checks
         assertNotNull(saved.id)
         assertNotNull(saved.name)
-        assertNotNull(saved.albums)
-        assertNotNull(saved.artists)
 
         // Assert - Value checks
         assertEquals(saved.id, song.id)

@@ -30,7 +30,7 @@ class Album(): IdBasedEntity() {
     var name: String? = null;
 
     @get:ManyToMany(mappedBy = "albums", fetch = FetchType.EAGER, cascade = [ CascadeType.ALL ])
-    var artists: MutableList<Artist>? = mutableListOf()
+    var artists: MutableList<Artist> = mutableListOf()
 
     @get:ManyToMany(fetch = FetchType.EAGER, cascade = [ CascadeType.PERSIST, CascadeType.MERGE ])
     @get:JoinTable(
@@ -40,5 +40,5 @@ class Album(): IdBasedEntity() {
         foreignKey = ForeignKey(name = "fk_album_song_album"),
         inverseForeignKey = ForeignKey(name = "fk_album_song_song")
     )
-    var songs: MutableList<Song>? = mutableListOf()
+    var songs: MutableList<Song> = mutableListOf()
 }
