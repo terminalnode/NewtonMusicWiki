@@ -5,6 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.findByIdOrNull
 import se.newton.musicwiki.persistence.IdBasedEntity
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 
@@ -35,5 +36,20 @@ class RepoTestHelper<EntityType>(
 
         return repository.findByIdOrNull(entity.id)
             ?: throw AssertionError("Could not find entity with id ${entity.id}")
+    }
+
+    /**
+     * Assert that a repository contains exactly a certain number of entries.
+     * @param number The number of entries we expect the repository to contain.
+     */
+    fun assertCount(number: Long) {
+        assertEquals(repository.count(), number)
+    }
+
+    /**
+     * Assert that a repository contains no entries.
+     */
+    fun assertEmpty() {
+        assertCount(0)
     }
 }
