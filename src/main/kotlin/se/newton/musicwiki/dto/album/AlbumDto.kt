@@ -18,7 +18,7 @@ fun mapAlbumToDto(album: Album): AlbumDto {
   return AlbumDto(
     id = album.id,
     name = album.name,
-    //songs = mapAlbumSongsToDtos(album.songs),
+    songs = mapAlbumSongsToDtos(album.songs),
     artists = mapAlbumArtistsToDtos(album.artists),
   )
 }
