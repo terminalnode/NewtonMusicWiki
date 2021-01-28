@@ -28,5 +28,3 @@ fun mapArtistToDto(artist: Artist): ArtistDto {
 fun mapArtistsToDtos(artists: List<Artist>): List<ArtistDto> {
     return artists.map { mapArtistToDto(it) }
 }
-
-

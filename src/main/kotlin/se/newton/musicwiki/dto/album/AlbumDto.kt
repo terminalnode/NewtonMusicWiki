@@ -1,6 +1,5 @@
 package se.newton.musicwiki.dto.album
 
-import se.newton.musicwiki.dto.album.*
 import se.newton.musicwiki.persistence.models.Album
 
 data class AlbumDto(
@@ -10,7 +9,7 @@ data class AlbumDto(
     val artists: List<AlbumArtistDto> = mutableListOf()
   )
 
-data class ArtistListDto(
+data class AlbumListDto(
   val albums: List<AlbumDto>
 )
 

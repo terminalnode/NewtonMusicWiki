@@ -3,16 +3,15 @@ package se.newton.musicwiki.dto.mapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import se.newton.musicwiki.dto.album.*
-import se.newton.musicwiki.dto.album.mapAlbumArtistToDto
 import se.newton.musicwiki.dto.artist.*
 import se.newton.musicwiki.dto.song.*
 import se.newton.musicwiki.persistence.models.Album
+import se.newton.musicwiki.persistence.models.AlbumSong
 import se.newton.musicwiki.persistence.models.Artist
 import se.newton.musicwiki.persistence.models.Song
 
 @Configuration
-class DtoMapperConfig(
-) {
+class DtoMapperConfig {
     @Bean
     fun artistMapper(): DtoMapping<Artist, ArtistDto> {
         return DtoMapping { mapArtistToDto(it) }
@@ -38,10 +37,10 @@ class DtoMapperConfig(
         return DtoMapping { mapAlbumArtistToDto(it) }
     }
 
-    /*@Bean
-    fun albumSongMapper(): DtoMapping<Song, AlbumSongDto> {
+    @Bean
+    fun albumSongMapper(): DtoMapping<AlbumSong, AlbumSongDto> {
         return DtoMapping { mapAlbumSongToDto(it) }
-    }*/
+    }
 
     @Bean
     fun songMapper(): DtoMapping<Song, SongDto> {
@@ -54,9 +53,7 @@ class DtoMapperConfig(
     }
 
     @Bean
-    fun songAlbumMapper(): DtoMapping<Album, SongAlbumDto> {
+    fun songAlbumMapper(): DtoMapping<AlbumSong, SongAlbumDto> {
         return DtoMapping { mapSongAlbumToDto(it) }
     }
-
 }
-
