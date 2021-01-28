@@ -1,8 +1,10 @@
 package se.newton.musicwiki.controller.rest.v1
 
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import se.newton.musicwiki.dto.mapper.DtoMapper
+import se.newton.musicwiki.dto.song.SongDto
+import se.newton.musicwiki.dto.song.SongListDto
+import se.newton.musicwiki.persistence.models.Song
 import se.newton.musicwiki.service.crud.SongService
 
 @RestController
@@ -11,17 +13,16 @@ class SongController(
   val songService: SongService,
   val dtoMapper: DtoMapper
 ) {
-  /*
   @GetMapping("/{id}")
   fun findById(@PathVariable id: Long): SongDto {
     val song = songService.findById(id)
-    return dtoMapper.map(song)
+    return dtoMapper.map(song, SongDto::class)
   }
 
   @PostMapping
   fun createAlbum(@RequestBody song: Song): SongDto {
     val newSong = songService.create(song)
-    return dtoMapper.map(newSong)
+    return dtoMapper.map(newSong, SongDto::class)
   }
 
   @DeleteMapping("/{id}")
@@ -32,13 +33,12 @@ class SongController(
   @GetMapping
   fun findAll(): SongListDto {
     val songs = songService.findAll()
-    return SongListDto(dtoMapper.map(songs))
+    return SongListDto(dtoMapper.map(songs, SongDto::class))
   }
 
   @PostMapping("/edit")
   fun addArtistsToSong(@RequestBody song: Song): SongDto {
     val updatedSong = songService.update(song)
-    return dtoMapper.map(updatedSong)
+    return dtoMapper.map(updatedSong, SongDto::class)
   }
- */
 }
