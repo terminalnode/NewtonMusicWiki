@@ -10,10 +10,6 @@ data class AlbumSongDto(
   val track: Int?
 )
 
-data class AlbumSongListDto(
-  val albums: List<AlbumSongDto>
-)
-
 fun mapAlbumSongToDto(albumSong: AlbumSong): AlbumSongDto {
 
   return AlbumSongDto(

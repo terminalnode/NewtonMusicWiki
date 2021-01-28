@@ -11,7 +11,7 @@ data class SongDto(
 )
 
 data class SongListDto(
-  val artists: List<SongDto>
+  val songs: List<SongDto>
 )
 
 fun mapSongToDto(song: Song): SongDto {
@@ -19,7 +19,7 @@ fun mapSongToDto(song: Song): SongDto {
     id = song.id,
     name = song.name,
     artists = mapSongArtistToDtos(song.artists),
-    //albums = mapSongAlbumToDtos(song.albums),
+    albums = mapSongAlbumToDtos(song.albums),
   )
 }
 

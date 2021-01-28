@@ -7,10 +7,6 @@ data class ArtistAlbumDto(
     val name: String?
 )
 
-data class ArtistAlbumListDto(
-    val albums: List<ArtistAlbumDto>
-)
-
 fun mapArtistAlbumToDto(album: Album): ArtistAlbumDto {
     return ArtistAlbumDto(
         id = album.id,
