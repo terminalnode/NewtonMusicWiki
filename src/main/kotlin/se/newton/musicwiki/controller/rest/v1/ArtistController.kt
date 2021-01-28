@@ -1,12 +1,8 @@
 package se.newton.musicwiki.controller.rest.v1
 
-import org.springframework.web.bind.annotation.*
-import se.newton.musicwiki.dto.artist.ArtistDto
-import se.newton.musicwiki.dto.artist.ArtistListDto
-import se.newton.musicwiki.dto.artist.ArtistSongListDto
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import se.newton.musicwiki.dto.mapper.DtoMapper
-import se.newton.musicwiki.persistence.models.Artist
-import se.newton.musicwiki.persistence.models.Song
 import se.newton.musicwiki.service.crud.ArtistService
 
 @RestController
@@ -15,6 +11,7 @@ class ArtistController(
   val artistService: ArtistService,
   val dtoMapper: DtoMapper
 ) {
+  /*
   @GetMapping("/{id}")
   fun findById(@PathVariable id: Long): ArtistDto? {
     val artist = artistService.findById(id)
@@ -51,4 +48,5 @@ class ArtistController(
     val songs = artistService.addSongsToArtist(id, artist.songs)
     return ArtistSongListDto(dtoMapper.map(songs))
   }
+  */
 }

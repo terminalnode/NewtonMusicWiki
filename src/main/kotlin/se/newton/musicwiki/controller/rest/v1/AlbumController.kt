@@ -16,13 +16,13 @@ class AlbumController(
   @GetMapping("/{id}")
   fun findById(@PathVariable id: Long): AlbumDto {
     val album = albumService.findById(id)
-    return dtoMapper.map(album);
+    return dtoMapper.map(album, AlbumDto::class)
   }
 
   @PostMapping
   fun createAlbum(@RequestBody album: Album): AlbumDto {
     val newAlbum = albumService.create(album)
-    return dtoMapper.map(newAlbum)
+    return dtoMapper.map(newAlbum, AlbumDto::class)
   }
 
   @DeleteMapping("/{id}")
@@ -33,6 +33,6 @@ class AlbumController(
   @GetMapping
   fun findAll(): AlbumListDto {
     val albums = albumService.findAll()
-    return AlbumListDto(dtoMapper.map(albums))
+    return AlbumListDto(dtoMapper.map(albums, AlbumDto::class))
   }
 }
