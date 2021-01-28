@@ -10,67 +10,67 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 
 class RepoTestHelper<EntityType>(
-    private val repository: JpaRepository<EntityType, Long>
+  private val repository: JpaRepository<EntityType, Long>
 ) where EntityType : IdBasedEntity {
-    /**
-     * Assert that an exception is thrown when trying to save an entity with non-null field set to null.
-     * @param entity The entity we're supposed to fail to save
-     * @param fieldName The not-null field name that's null
-     */
-    fun assertMissingRequiredField(entity: EntityType, fieldName: String) {
-        val e = assertFailsWith<DataIntegrityViolationException> {
-            repository.save(entity)
-        }
-
-        assertThat(e.message)
-            .contains("not-null property references a null or transient value : ${entity.javaClass.name}.${fieldName}")
+  /**
+   * Assert that an exception is thrown when trying to save an entity with non-null field set to null.
+   * @param entity The entity we're supposed to fail to save
+   * @param fieldName The not-null field name that's null
+   */
+  fun assertMissingRequiredField(entity: EntityType, fieldName: String) {
+    val e = assertFailsWith<DataIntegrityViolationException> {
+      repository.save(entity)
     }
 
-    /**
-     * Retrieve an entity from the database, throw an AssertionError if the entity does not exist in the database.
-     * Before retrieval a not null check will be performed on the entity id
-     * @param entity The entity to fetch from the database.
-     */
-    fun retrieveAndAssert(entity: EntityType): EntityType {
-        assertNotNull(entity.id)
+    assertThat(e.message)
+      .contains("not-null property references a null or transient value : ${entity.javaClass.name}.${fieldName}")
+  }
 
-        return repository.findByIdOrNull(entity.id)
-            ?: throw AssertionError("Could not find entity with id ${entity.id}")
-    }
+  /**
+   * Retrieve an entity from the database, throw an AssertionError if the entity does not exist in the database.
+   * Before retrieval a not null check will be performed on the entity id
+   * @param entity The entity to fetch from the database.
+   */
+  fun retrieveAndAssert(entity: EntityType): EntityType {
+    assertNotNull(entity.id)
 
-    /**
-     * Assert that a repository contains exactly a certain number of entries.
-     * @param number The number of entries we expect the repository to contain.
-     */
-    fun assertCount(number: Long) {
-        assertEquals(repository.count(), number)
-    }
+    return repository.findByIdOrNull(entity.id)
+      ?: throw AssertionError("Could not find entity with id ${entity.id}")
+  }
 
-    /**
-     * Assert that a repository contains no entries.
-     */
-    fun assertEmpty() {
-        assertCount(0)
-    }
+  /**
+   * Assert that a repository contains exactly a certain number of entries.
+   * @param number The number of entries we expect the repository to contain.
+   */
+  fun assertCount(number: Long) {
+    assertEquals(repository.count(), number)
+  }
 
-    /**
-     * Extract the id from an entity and delete it from the repository.
-     * If the entity does not have an id an assertion error will be thrown.
-     * @param entity The entity that should be deleted.
-     */
-    fun deleteEntityById(entity: EntityType) {
-        val id = entity.id ?: throw AssertionError("Entity doesn't have an id")
-        repository.deleteById(id)
-    }
+  /**
+   * Assert that a repository contains no entries.
+   */
+  fun assertEmpty() {
+    assertCount(0)
+  }
 
-    /**
-     * Assert that a repository does not contain the provided entity.
-     * @param entity The entity that's not supposed to exist.
-     */
-    fun assertNotExistById(entity: EntityType) {
-        val id = entity.id ?: throw AssertionError("Entity doesn't have an id")
-        if (repository.existsById(id)) {
-            throw AssertionError("The entity that's not supposed to exist does in fact exist")
-        }
+  /**
+   * Extract the id from an entity and delete it from the repository.
+   * If the entity does not have an id an assertion error will be thrown.
+   * @param entity The entity that should be deleted.
+   */
+  fun deleteEntityById(entity: EntityType) {
+    val id = entity.id ?: throw AssertionError("Entity doesn't have an id")
+    repository.deleteById(id)
+  }
+
+  /**
+   * Assert that a repository does not contain the provided entity.
+   * @param entity The entity that's not supposed to exist.
+   */
+  fun assertNotExistById(entity: EntityType) {
+    val id = entity.id ?: throw AssertionError("Entity doesn't have an id")
+    if (repository.existsById(id)) {
+      throw AssertionError("The entity that's not supposed to exist does in fact exist")
     }
+  }
 }

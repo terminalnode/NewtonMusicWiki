@@ -2,11 +2,10 @@ package se.newton.musicwiki.dto.album
 
 import se.newton.musicwiki.persistence.models.Artist
 
-
 data class AlbumArtistDto(
-    val id: Long?,
-    val name: String?
-  )
+  val id: Long?,
+  val name: String?
+)
 
 fun mapAlbumArtistToDto(artist: Artist): AlbumArtistDto {
   return AlbumArtistDto(

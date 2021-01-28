@@ -15,50 +15,50 @@ import kotlin.test.assertNotNull
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class `Artist Repository Integration`(
-    @Autowired val artistRepository: ArtistRepository,
-    @Autowired val entityManager: EntityManager,
+  @Autowired val artistRepository: ArtistRepository,
+  @Autowired val entityManager: EntityManager,
 ) {
-    val artistRepositoryHelper: RepoTestHelper<Artist> = RepoTestHelper(artistRepository)
+  val artistRepositoryHelper: RepoTestHelper<Artist> = RepoTestHelper(artistRepository)
 
-    @Test
-    fun `Can save when all required fields (name, artistType) are not null`() {
-        // Arrange
-        val artist = Artist("Rob Sonic", ArtistType.PERSON)
+  @Test
+  fun `Can save when all required fields (name, artistType) are not null`() {
+    // Arrange
+    val artist = Artist("Rob Sonic", ArtistType.PERSON)
 
-        // Act
-        artistRepository.saveAndFlush(artist)
-        entityManager.clear()
+    // Act
+    artistRepository.saveAndFlush(artist)
+    entityManager.clear()
 
-        // Assert
-        val saved = artistRepositoryHelper.retrieveAndAssert(artist)
+    // Assert
+    val saved = artistRepositoryHelper.retrieveAndAssert(artist)
 
-        // Assert - Not null checks
-        assertNotNull(saved.id)
-        assertNotNull(saved.name)
+    // Assert - Not null checks
+    assertNotNull(saved.id)
+    assertNotNull(saved.name)
 
-        // Assert - Value checks
-        assertEquals(saved.id, artist.id)
-        assertEquals(saved.name, artist.name)
-        assertEquals(saved.artistType, artist.artistType)
-        assertThat(saved.albums).isEmpty()
-        assertThat(saved.songs).isEmpty()
-    }
+    // Assert - Value checks
+    assertEquals(saved.id, artist.id)
+    assertEquals(saved.name, artist.name)
+    assertEquals(saved.artistType, artist.artistType)
+    assertThat(saved.albums).isEmpty()
+    assertThat(saved.songs).isEmpty()
+  }
 
-    @Test
-    fun `Can not save when name is null`() {
-        // Arrange
-        val artist = Artist(null, ArtistType.PERSON)
+  @Test
+  fun `Can not save when name is null`() {
+    // Arrange
+    val artist = Artist(null, ArtistType.PERSON)
 
-        // Act and Assert
-        artistRepositoryHelper.assertMissingRequiredField(artist, "name")
-    }
+    // Act and Assert
+    artistRepositoryHelper.assertMissingRequiredField(artist, "name")
+  }
 
-    @Test
-    fun `Can not save when artistType is null`() {
-        // Arrange
-        val artist = Artist("Rob Sonic", null)
+  @Test
+  fun `Can not save when artistType is null`() {
+    // Arrange
+    val artist = Artist("Rob Sonic", null)
 
-        // Act and Assert
-        artistRepositoryHelper.assertMissingRequiredField(artist, "artistType")
-    }
+    // Act and Assert
+    artistRepositoryHelper.assertMissingRequiredField(artist, "artistType")
+  }
 }

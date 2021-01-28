@@ -3,11 +3,11 @@ package se.newton.musicwiki.dto.album
 import se.newton.musicwiki.persistence.models.Album
 
 data class AlbumDto(
-    val id: Long?,
-    val name: String?,
-    val songs: List<AlbumSongDto> = mutableListOf(),
-    val artists: List<AlbumArtistDto> = mutableListOf()
-  )
+  val id: Long?,
+  val name: String?,
+  val songs: List<AlbumSongDto> = mutableListOf(),
+  val artists: List<AlbumArtistDto> = mutableListOf()
+)
 
 data class AlbumListDto(
   val albums: List<AlbumDto>

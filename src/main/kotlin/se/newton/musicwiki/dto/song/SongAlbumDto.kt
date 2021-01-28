@@ -2,7 +2,6 @@ package se.newton.musicwiki.dto.song
 
 import se.newton.musicwiki.persistence.models.AlbumSong
 
-
 data class SongAlbumDto(
   val id: Long?,
   val name: String?,
@@ -10,7 +9,6 @@ data class SongAlbumDto(
 )
 
 fun mapSongAlbumToDto(albumSong: AlbumSong): SongAlbumDto {
-
   return SongAlbumDto(
     id = albumSong.album?.id,
     name = albumSong.album?.name,

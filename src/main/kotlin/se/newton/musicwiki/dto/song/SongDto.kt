@@ -2,7 +2,6 @@ package se.newton.musicwiki.dto.song
 
 import se.newton.musicwiki.persistence.models.Song
 
-
 data class SongDto(
   val id: Long?,
   val name: String?,

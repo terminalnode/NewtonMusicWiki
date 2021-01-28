@@ -14,40 +14,40 @@ import kotlin.test.assertNotNull
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class `Song Repository Integration`(
-    @Autowired val songRepository: SongRepository,
-    @Autowired val entityManager: EntityManager,
+  @Autowired val songRepository: SongRepository,
+  @Autowired val entityManager: EntityManager,
 ) {
-    val songRepositoryHelper: RepoTestHelper<Song> = RepoTestHelper(songRepository)
+  val songRepositoryHelper: RepoTestHelper<Song> = RepoTestHelper(songRepository)
 
-    @Test
-    fun `Can save when all required fields (name) are not null`() {
-        // Arrange
-        val song = Song("Pep Rally")
+  @Test
+  fun `Can save when all required fields (name) are not null`() {
+    // Arrange
+    val song = Song("Pep Rally")
 
-        // Act
-        songRepository.saveAndFlush(song)
-        entityManager.clear()
+    // Act
+    songRepository.saveAndFlush(song)
+    entityManager.clear()
 
-        // Assert
-        val saved = songRepositoryHelper.retrieveAndAssert(song)
+    // Assert
+    val saved = songRepositoryHelper.retrieveAndAssert(song)
 
-        // Assert - Not null checks
-        assertNotNull(saved.id)
-        assertNotNull(saved.name)
+    // Assert - Not null checks
+    assertNotNull(saved.id)
+    assertNotNull(saved.name)
 
-        // Assert - Value checks
-        assertEquals(saved.id, song.id)
-        assertEquals(saved.name, song.name)
-        assertThat(saved.albums).isEmpty()
-        assertThat(saved.artists).isEmpty()
-    }
+    // Assert - Value checks
+    assertEquals(saved.id, song.id)
+    assertEquals(saved.name, song.name)
+    assertThat(saved.albums).isEmpty()
+    assertThat(saved.artists).isEmpty()
+  }
 
-    @Test
-    fun `Can not save when name is null`() {
-        // Arrange
-        val song = Song(null)
+  @Test
+  fun `Can not save when name is null`() {
+    // Arrange
+    val song = Song(null)
 
-        // Act and Assert
-        songRepositoryHelper.assertMissingRequiredField(song, "name")
-    }
+    // Act and Assert
+    songRepositoryHelper.assertMissingRequiredField(song, "name")
+  }
 }

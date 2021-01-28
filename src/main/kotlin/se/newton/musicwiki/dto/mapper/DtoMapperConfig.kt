@@ -12,48 +12,48 @@ import se.newton.musicwiki.persistence.models.Song
 
 @Configuration
 class DtoMapperConfig {
-    @Bean
-    fun artistMapper(): DtoMapping<Artist, ArtistDto> {
-        return DtoMapping { mapArtistToDto(it) }
-    }
+  @Bean
+  fun artistMapper(): DtoMapping<Artist, ArtistDto> {
+    return DtoMapping { mapArtistToDto(it) }
+  }
 
-    @Bean
-    fun artistAlbumMapper(): DtoMapping<Album, ArtistAlbumDto> {
-        return DtoMapping { mapArtistAlbumToDto(it) }
-    }
+  @Bean
+  fun artistAlbumMapper(): DtoMapping<Album, ArtistAlbumDto> {
+    return DtoMapping { mapArtistAlbumToDto(it) }
+  }
 
-    @Bean
-    fun artistSongMapper(): DtoMapping<Song, ArtistSongDto> {
-        return DtoMapping { mapArtistSongToDto(it) }
-    }
+  @Bean
+  fun artistSongMapper(): DtoMapping<Song, ArtistSongDto> {
+    return DtoMapping { mapArtistSongToDto(it) }
+  }
 
-    @Bean
-    fun albumMapper(): DtoMapping<Album, AlbumDto> {
-        return DtoMapping { mapAlbumToDto(it) }
-    }
+  @Bean
+  fun albumMapper(): DtoMapping<Album, AlbumDto> {
+    return DtoMapping { mapAlbumToDto(it) }
+  }
 
-    @Bean
-    fun albumArtistMapper(): DtoMapping<Artist, AlbumArtistDto> {
-        return DtoMapping { mapAlbumArtistToDto(it) }
-    }
+  @Bean
+  fun albumArtistMapper(): DtoMapping<Artist, AlbumArtistDto> {
+    return DtoMapping { mapAlbumArtistToDto(it) }
+  }
 
-    @Bean
-    fun albumSongMapper(): DtoMapping<AlbumSong, AlbumSongDto> {
-        return DtoMapping { mapAlbumSongToDto(it) }
-    }
+  @Bean
+  fun albumSongMapper(): DtoMapping<AlbumSong, AlbumSongDto> {
+    return DtoMapping { mapAlbumSongToDto(it) }
+  }
 
-    @Bean
-    fun songMapper(): DtoMapping<Song, SongDto> {
-        return DtoMapping { mapSongToDto(it) }
-    }
+  @Bean
+  fun songMapper(): DtoMapping<Song, SongDto> {
+    return DtoMapping { mapSongToDto(it) }
+  }
 
-    @Bean
-    fun songArtistMapper(): DtoMapping<Artist, SongArtistDto> {
-        return DtoMapping { mapSongArtistToDto(it) }
-    }
+  @Bean
+  fun songArtistMapper(): DtoMapping<Artist, SongArtistDto> {
+    return DtoMapping { mapSongArtistToDto(it) }
+  }
 
-    @Bean
-    fun songAlbumMapper(): DtoMapping<AlbumSong, SongAlbumDto> {
-        return DtoMapping { mapSongAlbumToDto(it) }
-    }
+  @Bean
+  fun songAlbumMapper(): DtoMapping<AlbumSong, SongAlbumDto> {
+    return DtoMapping { mapSongAlbumToDto(it) }
+  }
 }
