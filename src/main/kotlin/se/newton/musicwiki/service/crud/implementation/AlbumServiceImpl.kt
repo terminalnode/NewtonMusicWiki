@@ -26,7 +26,7 @@ class AlbumServiceImpl(
     album.id = 0;
 
     // Replace existing songs with entities
-    val songIds = album.songs.mapNotNull { it.id }
+    val songIds = album.songs.mapNotNull { it.song?.id }
     val existingSongs = songRepository.findByIdIn(songIds)
 
     album.songs.forEach { originalSong ->
