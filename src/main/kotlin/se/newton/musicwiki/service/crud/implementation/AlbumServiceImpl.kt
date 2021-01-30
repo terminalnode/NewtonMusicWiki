@@ -27,17 +27,11 @@ class AlbumServiceImpl(
 
     // Replace existing songs with entities
     val songIds = album.songs.mapNotNull { it.id }
-    println(songIds)
     val existingSongs = songRepository.findByIdIn(songIds)
-    println("existing songs!")
-    println(existingSongs)
-    println()
 
     album.songs.forEach { originalSong ->
-      println("IF CONTAINZ")
       if (existingSongs.contains(originalSong.song)) {
         val existingSong = existingSongs.first { it == originalSong.song }
-        println(existingSong)
         originalSong.song = existingSong
       } else {
         originalSong.song?.id = 0

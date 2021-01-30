@@ -33,7 +33,6 @@ class SongServiceImpl(
     existing.name = song.name
     existing.albums = song.albums
     existing.artists = song.artists
-    println(song.id)
 
     return songRepository.save(existing)
   }
