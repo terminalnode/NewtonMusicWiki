@@ -3,27 +3,18 @@ package se.newton.musicwiki.service.crud.implementation
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import se.newton.musicwiki.persistence.models.Song
+import se.newton.musicwiki.persistence.repositories.ArtistRepository
 import se.newton.musicwiki.persistence.repositories.SongRepository
 import se.newton.musicwiki.service.crud.SongService
 import javax.persistence.EntityNotFoundException
 
 @Service
 class SongServiceImpl(
-  val songRepository: SongRepository
+  val songRepository: SongRepository,
 ) : SongService {
-  override fun create(vararg songs: Song): List<Song> {
-    songs.forEach { it.id = 0 }
-
-    // Only save primary fields
-    //song.artists = mutableListOf()
-    //song.albums = mutableListOf()
-
-    return songRepository.saveAll(songs.asList())
-  }
-
   override fun create(song: Song): Song {
     song.id = 0;
-    song.artists = mutableListOf()
+
     song.albums = mutableListOf()
     return songRepository.save(song)
   }
