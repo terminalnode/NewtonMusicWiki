@@ -33,4 +33,8 @@ class Song(inName: String? = null): IdBasedEntity() {
 
   @get:ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
   var artists: MutableList<Artist> = mutableListOf()
+
+  override fun toString(): String {
+    return "Song{id=${id}, name=${name}, albums: ${albums.size}, artists: ${artists.size}}"
+  }
 }

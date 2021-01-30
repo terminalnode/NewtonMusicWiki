@@ -6,6 +6,7 @@ import se.newton.musicwiki.persistence.models.Album
 import se.newton.musicwiki.persistence.models.AlbumSong
 import se.newton.musicwiki.persistence.models.Artist
 import se.newton.musicwiki.persistence.repositories.AlbumRepository
+import se.newton.musicwiki.persistence.repositories.SongRepository
 import se.newton.musicwiki.service.crud.AlbumService
 import java.util.*
 import java.util.stream.Collectors
@@ -13,7 +14,8 @@ import javax.persistence.EntityNotFoundException
 
 @Service
 class AlbumServiceImpl(
-  val albumRepository: AlbumRepository
+  val albumRepository: AlbumRepository,
+  val songRepository: SongRepository
 ) : AlbumService {
   private fun getAlbum(albumId: Long): Album {
     return albumRepository.findByIdOrNull(albumId)
@@ -23,9 +25,25 @@ class AlbumServiceImpl(
   override fun create(album: Album): Album {
     album.id = 0;
 
-    // Only save primary fields when creating album
-    album.artists = mutableListOf()
-    album.songs = mutableListOf()
+    // Replace existing songs with entities
+    val songIds = album.songs.mapNotNull { it.id }
+    println(songIds)
+    val existingSongs = songRepository.findByIdIn(songIds)
+    println("existing songs!")
+    println(existingSongs)
+    println()
+
+    album.songs.forEach { originalSong ->
+      println("IF CONTAINZ")
+      if (existingSongs.contains(originalSong.song)) {
+        val existingSong = existingSongs.first { it == originalSong.song }
+        println(existingSong)
+        originalSong.song = existingSong
+      } else {
+        originalSong.song?.id = 0
+      }
+    }
+    album.songs.forEach { it.album = album }
 
     return albumRepository.save(album)
   }
