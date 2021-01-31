@@ -13,29 +13,34 @@ class SongController(
   val songService: SongService,
   val dtoMapper: DtoMapper
 ) {
+  @CrossOrigin
   @GetMapping("/{id}")
   fun findById(@PathVariable id: Long): SongDto {
     val song = songService.findById(id)
     return dtoMapper.map(song, SongDto::class)
   }
 
+  @CrossOrigin
   @PostMapping
   fun createAlbum(@RequestBody song: Song): SongDto {
     val newSong = songService.create(song)
     return dtoMapper.map(newSong, SongDto::class)
   }
 
+  @CrossOrigin
   @DeleteMapping("/{id}")
   fun deleteById(@PathVariable id: Long) {
     songService.deleteById(id)
   }
 
+  @CrossOrigin
   @GetMapping
   fun findAll(): SongListDto {
     val songs = songService.findAll()
     return SongListDto(dtoMapper.map(songs, SongDto::class))
   }
 
+  @CrossOrigin
   @PostMapping("/edit")
   fun addArtistsToSong(@RequestBody song: Song): SongDto {
     val updatedSong = songService.update(song)

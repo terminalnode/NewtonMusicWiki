@@ -13,23 +13,27 @@ class AlbumController(
   val albumService: AlbumService,
   val dtoMapper: DtoMapper
 ) {
+  @CrossOrigin
   @GetMapping("/{id}")
   fun findById(@PathVariable id: Long): AlbumDto {
     val album = albumService.findById(id)
     return dtoMapper.map(album, AlbumDto::class)
   }
 
+  @CrossOrigin
   @PostMapping
   fun createAlbum(@RequestBody album: Album): AlbumDto {
     val newAlbum = albumService.create(album)
     return dtoMapper.map(newAlbum, AlbumDto::class)
   }
 
+  @CrossOrigin
   @DeleteMapping("/{id}")
   fun deleteById(@PathVariable id: Long) {
     albumService.deleteById(id)
   }
 
+  @CrossOrigin
   @GetMapping
   fun findAll(): AlbumListDto {
     val albums = albumService.findAll()
