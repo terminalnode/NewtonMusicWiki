@@ -2,6 +2,7 @@ package se.newton.musicwiki.service.crud.implementation
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import se.newton.musicwiki.persistence.enums.ArtistType
 import se.newton.musicwiki.persistence.models.Artist
 import se.newton.musicwiki.persistence.models.Song
 import se.newton.musicwiki.persistence.repositories.ArtistRepository
@@ -42,6 +43,10 @@ class ArtistServiceImpl(
 
   override fun findByIds(vararg ids: Long): List<Artist> {
     return artistRepository.findByIdIn(ids.asList())
+  }
+
+  override fun findByType(type: ArtistType): List<Artist> {
+    return artistRepository.findByArtistType(type)
   }
 
   private fun getArtist(artistId: Long): Artist {

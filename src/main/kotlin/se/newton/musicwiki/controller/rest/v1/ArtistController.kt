@@ -6,6 +6,7 @@ import se.newton.musicwiki.dto.artist.ArtistListDto
 import se.newton.musicwiki.dto.artist.ArtistSongDto
 import se.newton.musicwiki.dto.artist.ArtistSongListDto
 import se.newton.musicwiki.dto.mapper.DtoMapper
+import se.newton.musicwiki.persistence.enums.ArtistType
 import se.newton.musicwiki.persistence.models.Artist
 import se.newton.musicwiki.persistence.models.Song
 import se.newton.musicwiki.service.crud.ArtistService
@@ -40,6 +41,13 @@ class ArtistController(
   @GetMapping
   fun findAll(): ArtistListDto {
     val artists = artistService.findAll()
+    return ArtistListDto(dtoMapper.map(artists, ArtistDto::class))
+  }
+
+  @CrossOrigin
+  @GetMapping("/type/{type}")
+  fun findByType(@PathVariable type: ArtistType): ArtistListDto {
+    val artists = artistService.findByType(type)
     return ArtistListDto(dtoMapper.map(artists, ArtistDto::class))
   }
 
