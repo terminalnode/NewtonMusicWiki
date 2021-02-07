@@ -28,9 +28,26 @@ class Artist(inName: String? = null, inArtistType: ArtistType? = null): IdBasedE
   @get:Column(
     name = "artist_type",
     nullable = false,
-    columnDefinition = "NUMERIC(1)"
-  )
+    columnDefinition = "NUMERIC(1)")
   var artistType: ArtistType? = inArtistType
+
+  @get:Column(
+    name = "longitude",
+    nullable = true,
+    columnDefinition = "FLOAT(8)")
+  var longitude: Double? = null
+
+  @get:Column(
+    name = "latitude",
+    nullable = true,
+    columnDefinition = "FLOAT(8)")
+  var latitude: Double? = null
+
+  @get:Column(
+    name = "description",
+    nullable = false,
+    columnDefinition = "TEXT")
+  var description: String? = ""
 
   @get:ManyToMany(fetch = FetchType.EAGER)
   @get:JoinTable(

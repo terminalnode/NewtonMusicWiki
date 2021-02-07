@@ -4,13 +4,17 @@ import se.newton.musicwiki.persistence.models.Artist
 
 data class SongArtistDto(
   val id: Long?,
-  val name: String?
+  val name: String?,
+  val longitude: Double?,
+  val latitude: Double?,
 )
 
 fun mapSongArtistToDto(artist: Artist): SongArtistDto {
   return SongArtistDto(
     id = artist.id,
-    name = artist.name
+    name = artist.name,
+    longitude = artist.longitude,
+    latitude = artist.latitude,
   )
 }
 

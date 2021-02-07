@@ -7,8 +7,11 @@ data class ArtistDto(
   val id: Long?,
   val name: String?,
   val artistType: ArtistType?,
+  val description: String?,
+  val longitude: Double?,
+  val latitude: Double?,
   val songs: List<ArtistSongDto> = mutableListOf(),
-  val albums: List<ArtistAlbumDto> = mutableListOf()
+  val albums: List<ArtistAlbumDto> = mutableListOf(),
 )
 
 data class ArtistListDto(
@@ -20,6 +23,9 @@ fun mapArtistToDto(artist: Artist): ArtistDto {
     id = artist.id,
     name = artist.name,
     artistType = artist.artistType,
+    description = artist.description,
+    longitude = artist.longitude,
+    latitude = artist.latitude,
     songs = mapArtistSongsToDtos(artist.songs),
     albums = mapArtistAlbumsToDtos(artist.albums),
   )
