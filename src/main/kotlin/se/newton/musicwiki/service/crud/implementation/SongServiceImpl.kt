@@ -3,7 +3,6 @@ package se.newton.musicwiki.service.crud.implementation
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import se.newton.musicwiki.persistence.models.Song
-import se.newton.musicwiki.persistence.repositories.ArtistRepository
 import se.newton.musicwiki.persistence.repositories.SongRepository
 import se.newton.musicwiki.service.crud.SongService
 import javax.persistence.EntityNotFoundException
@@ -25,7 +24,7 @@ class SongServiceImpl(
     existing.albums = song.albums
     existing.artists = song.artists
 
-    return songRepository.save(existing)
+    return songRepository.saveAndFlush(existing)
   }
 
   override fun findById(id: Long?): Song {

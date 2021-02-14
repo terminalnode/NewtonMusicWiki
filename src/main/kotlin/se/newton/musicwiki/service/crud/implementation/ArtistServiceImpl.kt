@@ -74,4 +74,10 @@ class ArtistServiceImpl(
     artistRepository.save(artist).songs
     return savedSongs
   }
+
+  override fun removeSongFromArtist(artistId: Long, songId: Long): Artist {
+    val artist = artistRepository.findById(artistId).orElseThrow();
+    artist.songs.removeIf { it.id == songId };
+    return artistRepository.save(artist)
+  }
 }

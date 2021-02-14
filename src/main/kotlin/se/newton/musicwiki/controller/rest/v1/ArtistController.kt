@@ -66,4 +66,13 @@ class ArtistController(
     val songs = artistService.addSongsToArtist(id, artist.songs)
     return ArtistSongListDto(dtoMapper.map(songs, ArtistSongDto::class))
   }
+
+  @CrossOrigin
+  @GetMapping("/{artistId}/songs/remove/{songId}")
+  fun removeSongFromArtist(
+    @PathVariable artistId: Long,
+    @PathVariable songId: Long
+  ) {
+    artistService.removeSongFromArtist(artistId, songId)
+  }
 }

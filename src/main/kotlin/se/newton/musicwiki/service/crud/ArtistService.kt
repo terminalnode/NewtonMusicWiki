@@ -13,4 +13,5 @@ interface ArtistService {
   fun deleteById(id: Long)
   fun findAll(): List<Artist>
   fun addSongsToArtist(artistId: Long, songs: List<Song>): List<Song>
+  fun removeSongFromArtist(artistId: Long, songId: Long): Artist
 }
