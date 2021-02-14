@@ -13,4 +13,6 @@ interface ArtistService {
   fun findAll(): List<Artist>
   fun removeSongFromArtist(artistId: Long, songId: Long): Artist
   fun addSongToArtist(artistId: Long, songId: Long): Artist
+  fun removeAlbumFromArtist(artistId: Long, albumId: Long): Artist
+  fun addAlbumToArtist(artistId: Long, albumId: Long): Artist
 }

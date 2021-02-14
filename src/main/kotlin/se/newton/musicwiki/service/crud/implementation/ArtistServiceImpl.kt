@@ -4,7 +4,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import se.newton.musicwiki.persistence.enums.ArtistType
 import se.newton.musicwiki.persistence.models.Artist
-import se.newton.musicwiki.persistence.models.Song
+import se.newton.musicwiki.persistence.repositories.AlbumRepository
 import se.newton.musicwiki.persistence.repositories.ArtistRepository
 import se.newton.musicwiki.persistence.repositories.SongRepository
 import se.newton.musicwiki.service.crud.ArtistService
@@ -13,7 +13,8 @@ import javax.persistence.EntityNotFoundException
 @Service
 class ArtistServiceImpl(
   val artistRepository: ArtistRepository,
-  val songRepository: SongRepository
+  val songRepository: SongRepository,
+  val albumRepository: AlbumRepository,
 ) : ArtistService {
 
   override fun create(artist: Artist): Artist {
@@ -76,6 +77,21 @@ class ArtistServiceImpl(
     val song = songRepository.findById(songId).orElseThrow();
     if (!artist.songs.contains(song)) {
       artist.songs.add(song)
+    }
+    return artistRepository.save(artist)
+  }
+
+  override fun removeAlbumFromArtist(artistId: Long, albumId: Long): Artist {
+    val artist = artistRepository.findById(artistId).orElseThrow();
+    artist.albums.removeIf { it.id == albumId };
+    return artistRepository.save(artist)
+  }
+
+  override fun addAlbumToArtist(artistId: Long, albumId: Long): Artist {
+    val artist = artistRepository.findById(artistId).orElseThrow();
+    val album = albumRepository.findById(albumId).orElseThrow();
+    if (!artist.albums.contains(album)) {
+      artist.albums.add(album)
     }
     return artistRepository.save(artist)
   }

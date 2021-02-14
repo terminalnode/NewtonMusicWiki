@@ -65,4 +65,22 @@ class ArtistController(
   ) {
     artistService.addSongToArtist(artistId, songId)
   }
+
+  @CrossOrigin
+  @GetMapping("/{artistId}/albums/remove/{albumId}")
+  fun removeAlbumFromArtist(
+    @PathVariable artistId: Long,
+    @PathVariable albumId: Long
+  ) {
+    artistService.removeAlbumFromArtist(artistId, albumId)
+  }
+
+  @CrossOrigin
+  @GetMapping("/{artistId}/albums/add/{albumId}")
+  fun addAlbumToArtist(
+    @PathVariable artistId: Long,
+    @PathVariable albumId: Long
+  ) {
+    artistService.addAlbumToArtist(artistId, albumId)
+  }
 }
