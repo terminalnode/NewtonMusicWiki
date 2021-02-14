@@ -65,19 +65,18 @@ class ArtistServiceImpl(
     return artistRepository.findAll()
   }
 
-  override fun addSongsToArtist(artistId: Long, songs: List<Song>): List<Song> {
-    songs.forEach { it.id = 0 }
-    val savedSongs = songRepository.saveAll(songs)
-
-    val artist = getArtist(artistId)
-    artist.songs.addAll(savedSongs)
-    artistRepository.save(artist).songs
-    return savedSongs
-  }
-
   override fun removeSongFromArtist(artistId: Long, songId: Long): Artist {
     val artist = artistRepository.findById(artistId).orElseThrow();
     artist.songs.removeIf { it.id == songId };
+    return artistRepository.save(artist)
+  }
+
+  override fun addSongToArtist(artistId: Long, songId: Long): Artist {
+    val artist = artistRepository.findById(artistId).orElseThrow();
+    val song = songRepository.findById(songId).orElseThrow();
+    if (!artist.songs.contains(song)) {
+      artist.songs.add(song)
+    }
     return artistRepository.save(artist)
   }
 }
